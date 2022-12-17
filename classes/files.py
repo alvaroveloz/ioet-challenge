@@ -13,23 +13,24 @@ def matchHours(begin_one: int, end_one: int, begin_two: int, end_two: int) -> bo
     elif begin_one >= begin_two and end_one <= end_two:
         return True
     else:
-        return False     
+        return False
 
 
 def coincidingOffice(peer_one: object, peer_two: object) -> int: 
-    verify = False   
+    matches = 0   
     for index_one in peer_one:
         for index_two in peer_two:
             if index_one['day'] == index_two['day']:
-                # print('{} its equal to {}'.format(index_one, index_two))       
+                print('{} its equal to {}'.format(index_one, index_two))       
                 # hours validation intersection 
                 begin_peer_one = parseInteger(index_one['begin'])
                 end_peer_one   = parseInteger(index_one['end'])
                 begin_peer_two = parseInteger(index_two['begin'])
                 end_peer_two   = parseInteger(index_two['end'])
-                verify = matchHours( begin_peer_one, end_peer_one, begin_peer_two,end_peer_two )
+                if matchHours( begin_peer_one, end_peer_one, begin_peer_two,end_peer_two ):
+                    matches+=1
                 
-    return verify
+    return matches
 
 # Using readlines()
 file1 = open('../data/2022-12-W1.txt', 'r')
@@ -63,16 +64,14 @@ maximum_pairs = len(registers)-1
 
 for index, peer_one in enumerate(registers, 0):
     index_peer = index
-    dict_peer = {}
     match = 0
     for peer_two in enumerate(registers, 0):
         # Getting peers to compare
         
         if index_peer < maximum_pairs:
             pair = '{}-{}'.format(registers[index]['user_register'], registers[index_peer+1]['user_register'])
-            print(coincidingOffice( registers[index]['schedule'], registers[index_peer+1]['schedule'] ))
-            if coincidingOffice( registers[index]['schedule'], registers[index_peer+1]['schedule'] ):
-                match+=1
+            print('{}-{}'.format(registers[index]['user_register'], registers[index_peer+1]['user_register'] ))
+            match = coincidingOffice( registers[index]['schedule'], registers[index_peer+1]['schedule'] )                
             pairs.append({ 'pair': pair, 'match':match})
             
             index_peer+=1
