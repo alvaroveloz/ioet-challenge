@@ -1,5 +1,8 @@
+from classes.Register import Register
+from classes.User import User
+from classes.Schedule import Schedule
 
-def removeBlankSpace(string):
+def removeBlankSpace(string: str) -> str:
     return string.replace(" ", "")
 
 def parseInteger(string: str) -> int:
@@ -14,7 +17,6 @@ def matchHours(begin_one: int, end_one: int, begin_two: int, end_two: int) -> bo
         return True
     else:
         return False
-
 
 def coincidingOffice(peer_one: object, peer_two: object) -> int: 
     matches = 0   
@@ -33,34 +35,46 @@ def coincidingOffice(peer_one: object, peer_two: object) -> int:
     return matches
 
 # Using readlines()
-file1 = open('../data/2022-12-W1.txt', 'r')
+file1 = open('./data/2022-12-W1.txt', 'r')
 Lines = file1.readlines()
  
 
 registers= []
 # Strips the newline character
 for line in Lines:
-    dict_user_register = {}    
+    #dict_user_register = {} 
+      
     raw_register = line.strip().split('=')
-    user = raw_register[0]
-    dict_user_register['user_register'] = user
+    user = User(raw_register[0]) 
+    # dict_user_register['user_register'] = user.name
+    # register.user_register = user.name
+
     raw_schedule = raw_register[1].split(',')
-    schedule = []
+    arr_schedule = []
     
     # Get days
-    for day_register in raw_schedule:
+    for item in raw_schedule:
         
-        day_register = removeBlankSpace(day_register)
-        day, begin, end = day_register[0:2], day_register[2:7], day_register[8:]
-        schedule.append({ "day": day, 'begin': begin, 'end': end})
-        #print(day, begin, end)
-    dict_user_register['schedule'] = schedule
-    registers.append(dict_user_register)
+        item = removeBlankSpace(item)
+        # day, begin, end = day_register[0:2], day_register[2:7], day_register[8:]
+        schedule = Schedule(item[0:2], item[2:7], item[8:])
+        schedule.saveSchedule(arr_schedule)
+        # arr_schedule.append({ "day": schedule.day, 'begin': schedule.begin, 'end': schedule.end})
         
-#registers contains data in an array of dictionaries
+    # dict_user_register['schedule'] = arr_schedule
+    register = Register(user.name, arr_schedule) 
+    # register.schedule = arr_schedule
+    
+    # registers.append(register)
+    registers = register.addRegister(registers)
 
+
+# Creating pairs and validating matches
 pairs = []
 maximum_pairs = len(registers)-1
+print(registers)
+
+# Getting the dict to send in output
 
 for index, peer_one in enumerate(registers, 0):
     index_peer = index
@@ -70,7 +84,8 @@ for index, peer_one in enumerate(registers, 0):
         
         if index_peer < maximum_pairs:
             pair = '{}-{}'.format(registers[index]['user_register'], registers[index_peer+1]['user_register'])
-            print('{}-{}'.format(registers[index]['user_register'], registers[index_peer+1]['user_register'] ))
+            # print('{}-{}'.format(registers[index]['user_register'], registers[index_peer+1]['user_register'] ))
+            # to search matches
             match = coincidingOffice( registers[index]['schedule'], registers[index_peer+1]['schedule'] )                
             pairs.append({ 'pair': pair, 'match':match})
             
