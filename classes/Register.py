@@ -1,6 +1,6 @@
 from typing import List
-from Schedule import Schedule
-from User import User
+from classes.Schedule import Schedule
+from classes.User import User
 
 class Register:
     user_register: User
@@ -13,5 +13,6 @@ class Register:
     def getPairs():
         pass
 
-    def addRegister():
-        pass
+    def addRegister(self, arr):
+        arr.append({ "user_register": self.user_register, "schedule": self.schedule })
+        return arr

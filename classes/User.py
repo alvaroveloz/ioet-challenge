@@ -1,6 +1,6 @@
 class User:
-    user: str
+    name: str
 
-    def __init__(self, user: str) -> None:
-        self.user = user
+    def __init__(self, name: str) -> None:
+        self.name = name
         

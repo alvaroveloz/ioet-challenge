@@ -7,4 +7,8 @@ class Schedule:
         self.day = day
         self.begin = begin
         self.end = end
+    
+    def saveSchedule(self, arr):
+        arr.append({ "day": self.day, 'begin': self.begin, 'end': self.end})
+        return arr
 
