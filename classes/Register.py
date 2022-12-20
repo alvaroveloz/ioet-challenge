@@ -4,6 +4,13 @@ from classes.User import User
 from utils.helpers import removeBlankSpace
 
 class Register:
+    """
+        Register Class to save register of users and lists of schedules.
+  
+        Parameters:
+            user_register (User): instance of User class
+            schedule (List[Schedule]): instance of Lists of Schedule.
+    """
     user_register: User
     schedule: List[Schedule]
 
@@ -11,14 +18,29 @@ class Register:
         self.user_register = user_register
         self.schedule = schedule
 
-    def getPairs():
-        pass
-
-    def addRegisterToList(self, arr: List):
+    def addRegisterToList(self, arr: List)->List:
+        """
+            Method to save objects in list of Register instance.
+    
+            Parameters:
+                arr (Register):  list of instances of Register class
+                
+            Return:
+                arr (Register): list of instances of Register class
+        """
         arr.append({ "user_register": self.user_register, "schedule": self.schedule })
         return arr
 
-    def buildRegisters(Lines: str):        
+    def buildRegisters(Lines: str)->List:
+        """
+            Method to get data from files. Return a list of depured objects.
+    
+            Parameters:
+                Lines (str):  A list of raw strings from file.
+                
+            Return:
+                List (Register): A list of instances of Register class
+        """
         registers= []
         # Strips the newline character
         for line in Lines:
