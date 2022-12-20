@@ -77,7 +77,9 @@ You are going to receive this message in console
 Enter the name of the file to export content: 
 ```
 Type the name of the input file, then you can see the table results in console. If you don't have any file, you can use either of the two files inside the /data/input 
+&nbsp;
 2022-12-W1.txt
+&nbsp;
 2022-12-W2.txt
 
 &nbsp;
